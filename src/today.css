@@ -1,0 +1,35 @@
+.today--logo {
+    width: 50%;
+    height: 100%;
+}
+.today--text {
+    width: 50%;
+    height: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+h1 {
+    font-size: 4rem;
+    margin: 0;
+}
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+p {
+    font-size: 1.5rem;
+    line-height: 1.7rem;
+    margin: 0;
+}
+.today--container {
+    display: flex;
+    width: 70%;
+    height: 50%;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: white;
+}

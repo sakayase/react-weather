@@ -1,0 +1,9 @@
+.next-days--container {
+    width: 80%;
+    justify-self: center;
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    bottom: -75px;
+    padding: 0px 50px;
+}
