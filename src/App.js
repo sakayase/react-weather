@@ -3,19 +3,39 @@ import React, { Component } from 'react';
 import axios from "axios";
 import Today from './Today';
 import NextDays from './NextDays';
-import SearchBar from './SearchBar';
 
 class App extends Component {
   state = {
-    data: {}
+    data: {},
+    longitude: 0,
+    latitude: 0
   }
 
   componentDidMount() {
-    axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=50.4291723&lon=2.8319805&units=metric&lang=fr&exclude=minutely,hourly,alerts&appid=8c3a54c385c9c9d874d88f2cd6b3dda8')
+
+  }
+
+  handleChange = (event) => { // fonction appellée dans SearchBar.js 
+    if (event.target.name === "longitude") {
+      this.setState({
+        longitude: event.target.value
+      })
+
+    } if (event.target.name === "latitude") {
+      this.setState({
+        latitude: event.target.value
+      })
+    }
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();   ////https://api.openweathermap.org/data/2.5/onecall?lat=50.4291723&lon=2.8319805&units=metric&lang=fr&exclude=minutely,hourly,alerts&appid=bf0439822962000f841efcbf28142ab8
+    axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + String(this.state.latitude) + '&lon=' + String(this.state.longitude) + '&units=metric&lang=fr&exclude=minutely,hourly,alerts&appid=bf0439822962000f841efcbf28142ab8')
       .then(res => {
         this.setState({
           data: res.data
         })
+        console.log(this.state.data)
       })
   }
 
@@ -40,7 +60,15 @@ class App extends Component {
 
       return (
         <div className="App">
-          <SearchBar />
+          <form className="search-bar--container" onSubmit={this.handleSubmit}>
+            <input className="bar" type="text" name="longitude" placeholder="longitude"
+              onChange={this.handleChange}
+            />
+            <input className="bar" type="text" name="latitude" placeholder="latitude"
+              onChange={this.handleChange}
+            />
+            <input className="button" type="submit" value="Search" />
+          </form>
           <Today temp={today[0]} desc={today[1]} icon={today[2]} />
           <NextDays info={nextDays} />
         </div>
@@ -48,8 +76,27 @@ class App extends Component {
     }
     else {
       // Sinon j'affiche un loading
-      return (<p>Loading...</p>);
+      return (
+        <div>
+          <h1>Location :</h1>
+          <form className="search-bar--container__noload" onSubmit={this.handleSubmit}>
+            <div class="noload--container">
+              <input className="bar__noload" type="text" name="longitude" placeholder="longitude"
+                onChange={this.handleChange}
+              />
+              <input className="bar__noload" type="text" name="latitude" placeholder="latitude"
+                onChange={this.handleChange}
+              />
+            </div>
+
+            <input className="button__noload" type="submit" value="Search" />
+          </form>
+        </div>
+      );
+
     }
+
+
 
 
   }

@@ -14,7 +14,6 @@ export default class NextDays extends Component {
     }
     
     render() {
-        console.log(this.state.data);
         return (
             <div className="next-days--container">
                 <Day date={this.state.data[0][0]} temp={this.state.data[0][1]} icon={this.state.data[0][2]}/>
