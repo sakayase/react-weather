@@ -37,27 +37,32 @@ class App extends Component {
         })
         console.log(this.state.data)
       })
+
+    const data = this.state.data;
+    const current = data.current;
+    const daily = data.daily;
+
+    //props de Today.js
+    this.setState ({ 
+      today: [current.temp, current.weather[0].description, current.weather[0].icon]
+    })
+
+    //props de nextDays.js & Day.js
+    const nextDays = []
+    for (let i = 1; i < 5; i++) {
+      let unixTime = daily[i].dt;
+      let date = new Date(unixTime * 1000);
+      let day = date.toLocaleString("fr-FR", { weekday: 'long' })  // formatage pour sortir un jour de la semaine depuis une date unixtimestamp
+      nextDays[i - 1] = [day, daily[i].temp.day, daily[i].weather[0].icon];
+    }
+    this.setState({
+      nextDays: nextDays
+    })
   }
 
   render() {
-    const data = this.state.data;
     // Checker que data est non vide
-    if (Object.keys(data).length !== 0) {
-      const current = data.current;
-      const daily = data.daily;
-
-      //props de Today.js
-      const today = [current.temp, current.weather[0].description, current.weather[0].icon];
-
-      //props de nextDays.js & Day.js
-      const nextDays = []
-      for (let i = 1; i < 5; i++) {
-        let unixTime = daily[i].dt;
-        let date = new Date(unixTime * 1000);
-        let day = date.toLocaleString("fr-FR", { weekday: 'long' })  // formatage pour sortir un jour de la semaine depuis une date unixtimestamp
-        nextDays[i - 1] = [day, daily[i].temp.day, daily[i].weather[0].icon];
-      }
-
+    if (Object.keys(this.state.data).length !== 0) {
       return (
         <div className="App">
           <form className="search-bar--container" onSubmit={this.handleSubmit}>
@@ -69,8 +74,8 @@ class App extends Component {
             />
             <input className="button" type="submit" value="Search" />
           </form>
-          <Today temp={today[0]} desc={today[1]} icon={today[2]} />
-          <NextDays info={nextDays} />
+          <Today temp={this.state.today[0]} desc={this.state.today[1]} icon={this.state.today[2]} />
+          <NextDays info={this.state.nextDays} />
         </div>
       );
     }
@@ -80,7 +85,7 @@ class App extends Component {
         <div>
           <h1>Location :</h1>
           <form className="search-bar--container__noload" onSubmit={this.handleSubmit}>
-            <div class="noload--container">
+            <div className="noload--container">
               <input className="bar__noload" type="text" name="longitude" placeholder="longitude"
                 onChange={this.handleChange}
               />
@@ -93,22 +98,8 @@ class App extends Component {
           </form>
         </div>
       );
-
     }
-
-
-
-
   }
 }
 
 export default App;
-
-
-/*
-      Météo actuelle: 2° / Ciel dégagé
-      Météo de demain : 4° / Pluvieux
-      Météo dans 2 jours : 7.12° / Orageux
-      Météo dans 3 jours : 14° / Ensoleillé
-      Météo dans 4 jours : 9° / Ensoleillé
-*/

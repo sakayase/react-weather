@@ -10,7 +10,7 @@ export default class Day extends Component {
     render() {
         return (
             <div className="day--container">
-                <h2 class="day--date">{this.props.date}</h2>
+                <h2 className="day--date">{this.props.date}</h2>
                 <img className="nextDays--logo" src={"http://www.openweathermap.org/img/wn/" + this.props.icon + "@2x.png"} alt=""/>
                 <p>{this.props.temp}°C</p>
             </div>
