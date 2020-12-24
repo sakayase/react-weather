@@ -9,17 +9,14 @@ export default class NextDays extends Component {
     static propTypes = {
         prop: PropTypes.func
     }
-    state = {
-        data: this.props.info
-    }
     
     render() {
         return (
             <div className="next-days--container">
-                <Day date={this.state.data[0][0]} temp={this.state.data[0][1]} icon={this.state.data[0][2]}/>
-                <Day date={this.state.data[1][0]} temp={this.state.data[1][1]} icon={this.state.data[1][2]}/>
-                <Day date={this.state.data[2][0]} temp={this.state.data[2][1]} icon={this.state.data[2][2]}/>
-                <Day date={this.state.data[3][0]} temp={this.state.data[3][1]} icon={this.state.data[3][2]}/>
+                <Day date={this.props.info[0][0]} temp={this.props.info[0][1]} icon={this.props.info[0][2]}/>
+                <Day date={this.props.info[1][0]} temp={this.props.info[1][1]} icon={this.props.info[1][2]}/>
+                <Day date={this.props.info[2][0]} temp={this.props.info[2][1]} icon={this.props.info[2][2]}/>
+                <Day date={this.props.info[3][0]} temp={this.props.info[3][1]} icon={this.props.info[3][2]}/>
             </div>
         )
     }
