@@ -15,7 +15,7 @@ export default class Today extends Component {
                 <img className="today--logo" src={"http://www.openweathermap.org/img/wn/" + this.props.icon + "@4x.png"} alt=""/>
                 <div className="today--text">
                     <h2>Today</h2>
-                    <h1>Lens</h1>
+                    <h1>{this.props.ville}</h1>
                     <p>Temperature: {this.props.temp}°C <br/>{this.props.desc}</p>
                 </div>
             </div>

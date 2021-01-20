@@ -86,7 +86,7 @@ class App extends Component {
             />
             <input className="button" type="submit" value="Search" />
           </form>
-          <Today temp={today[0]} desc={today[1]} icon={today[2]} />
+          <Today ville={this.state.ville} temp={today[0]} desc={today[1]} icon={today[2]} />
           <NextDays info={nextDays} />
         </div>
       );
